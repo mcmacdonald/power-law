@@ -149,8 +149,8 @@ plot_fun <- function(){
        xlim = c(x_min * 0.8, x_max * 1.2),
        ylim = c(y_min * 0.8, 1),
        xlab = "Market Capitalization (USD)", 
-       ylab = " Complementary Cumulative Distribution Function (CCDF)",
-       main = "Market Capitalization for S&P 1,500 Composite Firms",
+       ylab = "Complementary Cumulative Distribution Function (CCDF)",
+       main = "Market Capitalization for Firms listed on the S&P 1,500 Composite Index",
        axes = FALSE, frame = TRUE
        )
   
