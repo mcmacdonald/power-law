@@ -211,6 +211,9 @@ ccdf_empirical <- (n:1) / n
 k <- mle$xmin                     
 tail <- size[size >= k]
 n_tail <- length(tail)
+
+# scaling parameter
+a <- mle$pars
   
 # define confidence intervals
 xmin <- round(k, digits = 4)
