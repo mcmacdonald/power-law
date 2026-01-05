@@ -1,35 +1,44 @@
 
 
 
-# this file analyzes the statistical distribution of the market caps of the S&P composite 1,500
+# path to folder 
+path <- "fig/pl_fit/"
 
-# the rationale for analysis of the S&P composite 1,500 equity index rather than the S&P 500: 
-# 1) market cap is not the only thing that determines what firm is part of what index i.e., some S&P 500 components have market caps less than the current market cap eligibility criterion for new membership, not for continued membership
-# 2) arbitrary classifications and subjective rules also determine index listings: https://www.fool.com/investing/2019/02/09/how-are-sp-500-stocks-chosen.aspx
+# function to output high resolution images
+output <- function(filename, figure, path = path, width = 10, height = 5){
+  grDevices::png(
+    file.path(
+      path, 
+      filename
+      ), 
+      width = width, 
+      height = height, 
+      units = "in", 
+      res = 250
+    )
+  print(figure)
+  dev.off()
+}
+
+
 
 # don't run
 # install packages used to conduct analysis
 # install.packages(c("poweRlaw", "ggplot2", "scales"))
 
 
-# distribution of firm size by market caps
-size <- equities$Market_Value_Billions
 
 # maximum likelihood estimation of the distribution of firm size i.e., market capitalization --------------------------
 
   # replication
   set.seed(15092022) # Huddy's birthday
-  
-  # plot dimensions
-  par(mfrow = c(1, 1))
-  
+
+  # distribution of firm size by market caps
+  size <- equities$Market_Value_Billions
+
   # maximum likelihood estimation of the power-law distribution
-  require("poweRlaw") # see https://www.rdocumentation.org/packages/poweRlaw/versions/0.70.6
+  # see https://www.rdocumentation.org/packages/poweRlaw/versions/0.70.6
   mle <- poweRlaw::conpl(size)
-  
-  # don't run
-  # manually set the structural cut-off for the power law distribution
-  # mle$setXmin(k) # set the structural cut-off
   
   # estimate the structural cut-off point for the power law distribution
   k <- poweRlaw::estimate_xmin(mle)$xmin
@@ -41,21 +50,19 @@ size <- equities$Market_Value_Billions
   
   
   
-  # structural cut-off values for bootstrapping
-  
-  # round the structural cut-off
-  xmin <- round(k, digits = 4)
-  
-  # maximum value of the statistical distribution
-  kn <- max(size); kn <- round(kn, digits = 4)
-  
-  
-  
+
   # bootstrapped sampling distribution of the scaling parameter
   mle_confint <- function(mle, nsim){
     
     # required packages
     require("poweRlaw")
+    
+    # structural cut-off values for bootstrapping
+    xmin <- round(mle$xmin, digits = 4) # round the structural cut-off
+    
+    # maximum value of the statistical distribution
+    xmax <- max(mle$dat)
+    xmax <- round(xmax, digits = 4)
     
     # bootstrapped estimates 
     sims <- poweRlaw::bootstrap(
@@ -63,9 +70,9 @@ size <- equities$Market_Value_Billions
       no_of_sims = nsim, 
       # don't run
       # this code estimates the decay parameter throughout the distribution
-      # xmins = seq(xmin, kn, 0.10), # estimates xmins in the distribution
+      # xmins = seq(xmin, xmax, 0.10), # estimates xmins in the distribution
       xmins = xmin,
-      # xmax = kn,
+      # xmax = xmax,
       threads = 10, # more threads speed up the procedure
       distance = "reweight", # the distance statistic is used to calculate p-values ... reweight because distribution is likely not i.i.d.
       seed = 20110210 # Halle's birthday
@@ -85,6 +92,7 @@ size <- equities$Market_Value_Billions
   cis <- mle_confint(mle = mle, nsim = 1000)
   
   
+  
   # compute p-value for the hypothesis test
   # i.e., does the statistical distribution of equities resemble the power-law distribution?
   p <- poweRlaw::bootstrap_p(
@@ -92,7 +100,7 @@ size <- equities$Market_Value_Billions
     no_of_sims = 1000,
     # don't run
     # this code computes error in decay parameter for any plausible structural cut-off k throughout the statistical distribution
-    # xmins = seq(xmin, kn, 1), # estimates xmins in the distribution
+    # xmins = seq(xmin, xmax, 1), # estimates xmins in the distribution
     xmins = xmin,
     # xmax = kn,
     threads = 10, # more threads speed up the procedure
@@ -110,6 +118,14 @@ size <- equities$Market_Value_Billions
   
   
   
+  
+  
+# plot the statistical distribution ---------------------------------------------------------------------
+plot_fun <- function(){
+    
+  # plot dimensions
+  par(mfrow = c(1, 1))
+  
   # full empirical distribution for plotting
   size <- sort(size)
   n <- length(size)
@@ -119,9 +135,16 @@ size <- equities$Market_Value_Billions
   tail <- size[size >= k]
   n_tail <- length(tail)
   
+  # structural cut-off
+  xmin <- round(k, digits = 4)  # round the structural cut-off
+  
+  # maximum value of the statistical distribution
+  xmax <- max(size)
+  xmax <- round(xmax, digits = 4)
+  
   # define confidence intervals
   length.out <- length(size[size > xmin])
-  x_seq <- seq(xmin, kn, length.out = length.out)
+  x_seq <- seq(xmin, xmax, length.out = length.out)
   
   # compute CCDF values for power-law
   scale_factor <- sum(size >= k) / length(size)
@@ -255,10 +278,20 @@ size <- equities$Market_Value_Billions
          ),
          bty = "n", cex = 1
          )
+}
+fig6 <- grDevices::recordPlot({
+  plot_fun()
+   }
+  )
 
-
-
-
+# output figure
+output(
+  filename = "fig6.png",
+  figure = fig6,
+  path = path,
+  width = 10,
+  height = 5
+  )
 
 # close .r file
 
