@@ -32,8 +32,8 @@ ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   # mark 80% of firms
   ggplot2::geom_vline(data = sp1500, ggplot2::aes(xintercept = q50), linewidth = 1, linetype = "dashed", color = "red") +
   # label the lines
-  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2265 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
-  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2265 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
+  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
+  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
 
 
 
@@ -63,8 +63,8 @@ ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   # mark 80% of firms
   ggplot2::geom_vline(data = sp1500, ggplot2::aes(xintercept = q50), linewidth = 1, linetype = "dashed", color = "red") +
   # label the lines
-  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2265 50% of firms:\n ", round(q50, digits = 2), "B")), size = 8/.pt) + 
-  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2265 80% of firms:\n ", round(q80, digits = 2), "B")), size = 8/.pt) 
+  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n ", round(q50, digits = 2), "B")), size = 8/.pt) + 
+  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n ", round(q80, digits = 2), "B")), size = 8/.pt) 
 
 
 
@@ -95,8 +95,8 @@ ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
   # mark 80% of firms
   ggplot2::geom_vline(data = sp500, ggplot2::aes(xintercept = q50), linewidth = 1, linetype = "dashed", color = "red") +
   # label the lines
-  ggplot2::geom_label(data = sp500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2265 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
-  ggplot2::geom_label(data = sp500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2265 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
+  ggplot2::geom_label(data = sp500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
+  ggplot2::geom_label(data = sp500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
 
 
 
@@ -127,8 +127,8 @@ ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
   # mark 80% of firms
   ggplot2::geom_vline(data = mid_cap, ggplot2::aes(xintercept = q50), linewidth = 1, linetype = "dashed", color = "red") +
   # label the lines
-  ggplot2::geom_label(data = mid_cap, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2265 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
-  ggplot2::geom_label(data = mid_cap, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2265 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
+  ggplot2::geom_label(data = mid_cap, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
+  ggplot2::geom_label(data = mid_cap, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
 
 
 
@@ -159,8 +159,8 @@ ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
   # mark 80% of frims
   ggplot2::geom_vline(data = small_cap, ggplot2::aes(xintercept = q50), linewidth = 1, linetype = "dashed", color = "red") +
   # label the lines
-  ggplot2::geom_label(data = small_cap, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2265 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
-  ggplot2::geom_label(data = small_cap, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2265 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
+  ggplot2::geom_label(data = small_cap, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
+  ggplot2::geom_label(data = small_cap, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
 
 
 
