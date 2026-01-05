@@ -4,29 +4,9 @@
 # path to folder 
 path <- "fig/pl_fit/"
 
-# function to output high resolution images
-output <- function(filename, figure, path = path, width = 10, height = 5){
-  grDevices::png(
-    file.path(
-      path, 
-      filename
-      ), 
-      width = width, 
-      height = height, 
-      units = "in", 
-      res = 250
-    )
-  print(figure)
-  dev.off()
-}
-
-
-
 # don't run
 # install packages used to conduct analysis
 # install.packages(c("poweRlaw", "ggplot2", "scales"))
-
-
 
 # maximum likelihood estimation of the distribution of firm size i.e., market capitalization --------------------------
 
@@ -280,20 +260,38 @@ plot_fun <- function(){
          )
 }
 
-# construct the plot
-plot_fun()
-
+# don't run
 # screenshot of the plot
-fig6 <- grDevices::recordPlot()
+#fig6 <- grDevices::recordPlot()
+  
+# function to output high resolution images
+output <- function(filename, plot_fun, path = path, width = 10, height = 5){
+  grDevices::png(
+    file.path(
+      path, 
+      filename
+      ), 
+      width = width, 
+      height = height, 
+      units = "in", 
+      res = 250
+    )
+  plot_fun() # call the function
+  dev.off()
+}
 
 # output figure
 output(
   filename = "fig6.png",
-  figure = fig6,
+  plot_fun = plot_fun,
   path = path,
   width = 10,
   height = 5
   )
+
+
+
+
 
 # close .r file
 
