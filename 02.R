@@ -1,6 +1,24 @@
 
 
 
+# path to folder 
+path <- "fig/ccdf/"
+
+# function to output high resolution images
+output <- function(filename, figure, path = path){
+  ggplot2::ggsave(
+    filename,
+    figure,
+    path = path, 
+    width = 5, 
+    height = 5, 
+    device = 'png', 
+    dpi = 700
+    )
+}
+
+
+
 # call pipe to workspace
 `%>%` <- magrittr::`%>%`
 
@@ -20,7 +38,7 @@ sp1500 <- equities %>%
     )
 
 # the cumulative distribution of firm size for S&P 1,500 composite equity index
-ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
+fig1 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) +
   ggplot2::theme_bw() + 
   ggplot2::scale_x_log10() +
@@ -35,7 +53,12 @@ ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
   ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
 
-
+# appendix for outdegree degree distribution
+output(
+  filename = "fig1.png",
+  figure = fig1,
+  path = path
+  )
 
 
 
