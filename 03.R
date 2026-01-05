@@ -279,10 +279,7 @@ plot_fun <- function(){
          bty = "n", cex = 1
          )
 }
-fig6 <- grDevices::recordPlot({
-  plot_fun()
-   }
-  )
+fig6 <- grDevices::recordPlot()
 
 # output figure
 output(
