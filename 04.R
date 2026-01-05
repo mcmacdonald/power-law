@@ -1,14 +1,8 @@
 
 
 
-
-
-
-# this file analyzes the statistical distribution of the market caps of the S&P composite 1,500
-
-# the rationale for analysis of the S&P composite 1,500 equity index rather than the S&P 500: 
-# 1) market cap is not the only thing that determines what firm is part of what index i.e., some S&P 500 components have market caps less than the current market cap eligibility criterion for new membership, not for continued membership
-# 2) arbitrary classifications and subjective rules also determine index listings: https://www.fool.com/investing/2019/02/09/how-are-sp-500-stocks-chosen.aspx
+# path to folder 
+path <- "fig/pl_fit/"
 
 # don't run
 # install packages used to conduct analysis
@@ -357,48 +351,69 @@ par(mfrow = c(1, 1))
          bty = "n", cex = 1
          )
 }
+
+grDevices::png(file.path(path, "fig7.png"), width = 10, height = 5, units = "in", res = 250)
 mle_plot( # energy equities
   mle = mle_tech, 
   cis = cis_tech, 
   p = p_tech,
-  title = "Market Capitalization for S&P 1,500 Tech Firms"
+  title = "Market Capitalization for Tech Firms listed on the S&P 1,500 Composite Index"
   )
+grDevices::dev.off()
+
+grDevices::png(file.path(path, "fig8.png"), width = 10, height = 5, units = "in", res = 250)
 mle_plot( # energy equities
   mle = mle_energy, 
   cis = cis_energy, 
   p = p_energy,
-  title = "Market Capitalization for S&P 1,500 Energy Firms"
+  title = "Market Capitalization for Energy Firms listed on the S&P 1,500 Composite Index"
   )
+grDevices::dev.off()
+
+grDevices::png(file.path(path, "fig9.png"), width = 10, height = 5, units = "in", res = 250)
 mle_plot( # health care equities
   mle = mle_healthcare, 
   cis = cis_healthcare, 
   p = p_healthcare,
-  title = "Market Capitalization for S&P 1,500 Health Care Firms"
+  title = "Market Capitalization for Health Care Firms listed on the S&P 1,500 Composite Index"
   )
+grDevices::dev.off()
+
+grDevices::png(file.path(path, "fig10.png"), width = 10, height = 5, units = "in", res = 250)
 mle_plot( # industrial equities
   mle = mle_industrials, 
   cis = cis_industrials, 
   p = p_industrials,
-  title = "Market Capitalization for S&P 1,500 Industrial Firms"
+  title = "Market Capitalization for Industrial Firms listed on the S&P 1,500 Composite Index"
   )
+grDevices::dev.off()
+
+grDevices::png(file.path(path, "fig11.png"), width = 10, height = 5, units = "in", res = 250)
 mle_plot( # materials equities
   mle = mle_materials, 
   cis = cis_materials, 
   p = p_materials,
-  title = "Market Capitalization for S&P 1,500 Materials Firms"
+  title = "Market Capitalization for Materials Firms listed on the S&P 1,500 Composite Index"
   )
+grDevices::dev.off()
+
+grDevices::png(file.path(path, "fig12.png"), width = 10, height = 5, units = "in", res = 250)
 mle_plot( # utilities equities
   mle = mle_utilities, 
   cis = cis_utilities, 
   p = p_utilities,
-  title = "Market Capitalization for S&P 1,500 Utility Firms"
+  title = "Market Capitalization for Utility Firms listed on the S&P 1,500 Composite Index"
   )
+grDevices::dev.off()
+
+grDevices::png(file.path(path, "fig13.png"), width = 10, height = 5, units = "in", res = 250)
 mle_plot( # real estate equities
   mle = mle_realestate, 
   cis = cis_realestate, 
   p = p_realestate,
-  title = "Market Capitalization for S&P 1,500 Real Estate Firms"
+  title = "Market Capitalization for Real Estate Firms listed on the S&P 1,500 Composite Index"
   )
+grDevices::dev.off()
 
 
 
