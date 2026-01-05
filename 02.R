@@ -5,13 +5,13 @@
 path <- "fig/ccdf/"
 
 # function to output high resolution images
-output <- function(filename, figure, path = path){
+output <- function(filename, figure, path = path, width = 10, height = 5){
   ggplot2::ggsave(
     filename,
     figure,
     path = path, 
-    width = 10, 
-    height = 5, 
+    width = width, 
+    height = height, 
     device = 'png', 
     dpi = 250 # larger DPI increases the size of the plot aesthetics 
     )
@@ -64,7 +64,9 @@ fig1 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
 output(
   filename = "fig1.png",
   figure = fig1,
-  path = path
+  path = path,
+  width = 10,
+  height = 5
   )
 
 
@@ -81,7 +83,7 @@ sp1500 <- equities %>%
 # construct the plot
 fig2 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
-  ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
+  ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 8)) +
   ggplot2::scale_x_log10() +
@@ -100,7 +102,9 @@ fig2 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
 output(
   filename = "fig2.png",
   figure = fig2,
-  path = path
+  path = path,
+  width = 12,
+  height = 3
   )
 
 
@@ -118,7 +122,7 @@ sp500 <- equities %>%
 # construct the plot
 fig3 <- ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
-  ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
+  ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 8)) +
   ggplot2::scale_x_log10()+
@@ -137,7 +141,9 @@ fig3 <- ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
 output(
   filename = "fig3.png",
   figure = fig3,
-  path = path
+  path = path,
+  width = 12,
+  height = 3
   )
 
 
@@ -155,7 +161,7 @@ mid_cap <- equities %>%
 # construct the plot
 fig4 <- ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
-  ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
+  ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 8)) +
   ggplot2::scale_x_log10()+
@@ -174,7 +180,9 @@ fig4 <- ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
 output(
   filename = "fig4.png",
   figure = fig4,
-  path = path
+  path = path,
+  width = 12,
+  height = 3
   )
 
 
@@ -192,7 +200,7 @@ small_cap <- equities %>%
 # construct the plot
 fig5 <- ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
-  ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
+  ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 8)) +
   ggplot2::scale_x_log10()+
@@ -211,7 +219,9 @@ fig5 <- ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
 output(
   filename = "fig5.png",
   figure = fig5,
-  path = path
+  path = path,
+  width = 12,
+  height = 3
   )
 
 
