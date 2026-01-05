@@ -299,7 +299,7 @@ par(mfrow = c(1, 1))
        labels = format(10^y_log_range, scientific = FALSE, drop0trailing = TRUE), las = 1)
 
   # calculate position for labels on the y-axis (in log space)
-  y_label_pos <- 10^(log10(y_min * 0.8) - 0.15 * (log10(y_max) - log10(y_min * 0.8)))
+  y_label_pos <- 10^(log10(y_min * 0.8) - 0.05 * (log10(y_max) - log10(y_min * 0.8)))
   
   # angle text labels on the x-axis
   for (i in seq_along(x_ticks)) {
@@ -314,7 +314,7 @@ par(mfrow = c(1, 1))
   }
   
   # x-axis title i.e., adjust line to make room
-  mtext("Market Capitalization (USD)", side = 1, line = 3.5, cex = 0.10)
+  mtext("Market Capitalization (USD)", side = 1, line = 5, cex = 1)
   
   # shaded confidence band
   graphics:: polygon(c(x_seq, rev(x_seq)), 
@@ -397,7 +397,7 @@ mle_plot( # real estate equities
   mle = mle_realestate, 
   cis = cis_realestate, 
   p = p_realestate,
-  title = "Market Capitalization for S&P 1,500 Health Care Firms"
+  title = "Market Capitalization for S&P 1,500 Real Estate Firms"
   )
 
 
