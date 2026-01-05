@@ -9,6 +9,9 @@ path <- "fig/pl_fit/"
 # install.packages(c("poweRlaw", "ggplot2", "scales"))
 
 
+# largest market cap across sectors
+leader <- max(equities$Market_Value_Billions)
+
 
 # maximum likelihood estimation of the distribution of firm size i.e., market capitalization --------------------------
 mle <- function(data, sector, distribution){
@@ -225,9 +228,9 @@ ccdf_hi <- ccdf(cis[2])
 ccdf_lo <- ccdf(cis[1])
   
 # define the plot dimensions
-x_min <- min(size[size > 0])
-x_max <- max(size)
-y_min <- min(ccdf_empirical[ccdf_empirical > 0])
+x_min <- 0.01 # 10M minimum
+x_max <- leader
+y_min <- 0.0001
 y_max <- 1
 
 # plot dimensions
@@ -285,15 +288,15 @@ par(mfrow = c(1, 1))
   axis(1, at = x_ticks, labels = FALSE, tcl = -0.5)
   
   # y-axis
-  y_log_range <- floor(log10(y_min)):0
-  axis(2, at = 10^y_log_range, 
+  y_tricks <- c(0.0001, 0.001, 0.01, 0.1, 1)
+  axis(2, at = y_ticks, 
        # don't run
        # run this line instead for scientific notation
        # labels = sapply(y_log_range, function(i) as.expression(bquote(10^.(i)))))
-       labels = format(10^y_log_range, scientific = FALSE, drop0trailing = TRUE), las = 1)
+       labels = format(y_ticks, scientific = FALSE, drop0trailing = TRUE), las = 1)
 
   # calculate position for labels on the y-axis (in log space)
-  y_label_pos <- 10^(log10(y_min * 0.8) - 0.05 * (log10(y_max) - log10(y_min * 0.8)))
+  y_label_pos <- 10^(log10(0.0001 * 0.8) - 0.05 * (log10(1) - log10(0.0001 * 0.8)))
   
   # angle text labels on the x-axis
   for (i in seq_along(x_ticks)) {
