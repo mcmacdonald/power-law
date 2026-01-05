@@ -56,7 +56,7 @@ mle <- function(data, sector, distribution){
   }
 
 # compute analysis for different sectors
-mle_infotech <- mle(
+mle_tech <- mle(
   data = equities, 
   sector = "INFORMATION TECHNOLOGY", 
   distribution = "Market_Value_Billions"
@@ -135,7 +135,7 @@ mle_confint <- function(mle, nsim){
     sims <- cbind(lo, hi)
     return(sims)
   }
-  cis_infotech <- mle_confint(mle = mle_infotech, nsim = 1000)
+  cis_tech <- mle_confint(mle = mle_tech, nsim = 1000)
   cis_energy <- mle_confint(mle = mle_energy, nsim = 1000)
   cis_healthcare <- mle_confint(mle = mle_healthcare, nsim = 1000)
   cis_industrials <- mle_confint(mle = mle_industrials, nsim = 1000)
@@ -149,10 +149,18 @@ mle_confint <- function(mle, nsim){
 
 # compute p-value for the hypothesis test --------------------------------------------------------------
 # i.e., does the statistical distribution of equities resemble the power-law distribution?
-mle_hypothesis <- function(mle, nsim){
+mle_p <- function(mle, nsim){
 
    # required packages
   require("poweRlaw")
+    
+  # structural cut-off values for bootstrapping
+  xmin <- mle$xmin
+  xmin <- round(xmin, digits = 4) # round the structural cut-off
+
+  # maximum value of the statistical distribution
+  xmax <- max(mle$dat)
+  xmax <- round(xmax, digits = 4)
 
   # calculate statistical significance
   p <- poweRlaw::bootstrap_p(
@@ -179,20 +187,20 @@ mle_hypothesis <- function(mle, nsim){
   # return
   return(p)
 }
-p_infotech <- mle_hypothesis(mle = mle_infotech, nsim = 1000)
-p_energy <- mle_hypothesis(mle = mle_energy, nsim = 1000)
-p_healthcare <- mle_hypothesis(mle = mle_healthcare, nsim = 1000)
-p_industrials <- mle_hypothesis(mle = mle_industrials, nsim = 1000)
-p_materials <- mle_hypothesis(mle = mle_materials, nsim = 1000)
-p_utilities <- mle_hypothesis(mle = mle_utilities, nsim = 1000)
-p_realestate <- mle_hypothesis(mle = mle_realestate, nsim = 1000)
+p_tech <- mle_p(mle = mle_tech, nsim = 1000)
+p_energy <- mle_p(mle = mle_energy, nsim = 1000)
+p_healthcare <- mle_p(mle = mle_healthcare, nsim = 1000)
+p_industrials <- mle_p(mle = mle_industrials, nsim = 1000)
+p_materials <- mle_p(mle = mle_materials, nsim = 1000)
+p_utilities <- mle_p(mle = mle_utilities, nsim = 1000)
+p_realestate <- mle_p(mle = mle_realestate, nsim = 1000)
 
 
 
 
 
 # plot the statistical distribution of market caps ---------------------------------------------------
-mle_plot <- function(mle, cis, p){
+mle_plot <- function(mle, cis, p, title){
 
 # full empirical distribution for plotting
 size <- sort(mle$dat)
@@ -236,8 +244,8 @@ par(mfrow = c(1, 1))
        xlim = c(x_min * 0.8, x_max * 1.2),
        ylim = c(y_min * 0.8, 1),
        xlab = "Market Capitalization (USD)", 
-       ylab = " Complementary Cumulative Distribution Function (CCDF)",
-       main = "Market Capitalization for S&P 500, 400, and 600 Firms",
+       ylab = "Complementary Cumulative Distribution Function (CCDF)",
+       main = title,
        axes = FALSE, frame = TRUE
        )
   
@@ -346,10 +354,53 @@ par(mfrow = c(1, 1))
          bty = "n", cex = 1
          )
 }
-mle_plot(mle = mle_energy, cis = cis_energy, p = p_energy)
+mle_plot( # energy equities
+  mle = mle_tech, 
+  cis = cis_tech, 
+  p = p_tech,
+  title = "Market Capitalization for S&P 1,500 Tech Firms"
+  )
+mle_plot( # energy equities
+  mle = mle_energy, 
+  cis = cis_energy, 
+  p = p_energy,
+  title = "Market Capitalization for S&P 1,500 Energy Firms"
+  )
+mle_plot( # health care equities
+  mle = mle_healthcare, 
+  cis = cis_healthcare, 
+  p = p_healthcare,
+  title = "Market Capitalization for S&P 1,500 Health Care Firms"
+  )
+mle_plot( # industrial equities
+  mle = mle_industrials, 
+  cis = cis_industrials, 
+  p = p_industrials,
+  title = "Market Capitalization for S&P 1,500 Industrial Firms"
+  )
+mle_plot( # materials equities
+  mle = mle_materials, 
+  cis = cis_materials, 
+  p = p_materials,
+  title = "Market Capitalization for S&P 1,500 Materials Firms"
+  )
+mle_plot( # utilities equities
+  mle = mle_utilities, 
+  cis = cis_utilities, 
+  p = p_utilities,
+  title = "Market Capitalization for S&P 1,500 Utility Firms"
+  )
+mle_plot( # real estate equities
+  mle = mle_realestate, 
+  cis = cis_realestate, 
+  p = p_realestate,
+  title = "Market Capitalization for S&P 1,500 Health Care Firms"
+  )
+
 
 
 
 
 # close .r file
+
 
