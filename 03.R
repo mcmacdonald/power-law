@@ -170,7 +170,7 @@ plot_fun <- function(){
        ylim = c(y_min * 0.8, 1),
        xlab = "Market Capitalization (USD)", 
        ylab = " Complementary Cumulative Distribution Function (CCDF)",
-       main = "Market Capitalization for S&P 500, 400, and 600 Firms",
+       main = "Market Capitalization for S&P 1,500 Composite Firms",
        axes = FALSE, frame = TRUE
        )
   
@@ -221,7 +221,7 @@ plot_fun <- function(){
        labels = format(10^y_log_range, scientific = FALSE, drop0trailing = TRUE), las = 1)
 
   # calculate position for labels on the y-axis (in log space)
-  y_label_pos <- 10^(log10(y_min * 0.8) - 0.15 * (log10(y_max) - log10(y_min * 0.8)))
+  y_label_pos <- 10^(log10(y_min * 0.8) - 0.08 * (log10(y_max) - log10(y_min * 0.8)))
   
   # angle text labels on the x-axis
   for (i in seq_along(x_ticks)) {
@@ -236,7 +236,7 @@ plot_fun <- function(){
   }
   
   # x-axis title i.e., adjust line to make room
-  mtext("Market Capitalization (USD)", side = 1, line = 3.5, cex = 0.10)
+  mtext("Market Capitalization (USD)", side = 1, line = 5, cex = 1)
   
   # shaded confidence band
   graphics:: polygon(c(x_seq, rev(x_seq)), 
@@ -279,6 +279,11 @@ plot_fun <- function(){
          bty = "n", cex = 1
          )
 }
+
+# construct the plot
+plot_fun()
+
+# screenshot of the plot
 fig6 <- grDevices::recordPlot()
 
 # output figure
