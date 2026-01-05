@@ -304,7 +304,7 @@ par(mfrow = c(1, 1))
          adj = c(1, 0.5),
          xpd = TRUE,
          cex = 0.85
-        )
+         )
   }
   
   # x-axis title i.e., adjust line to make room
@@ -340,10 +340,10 @@ par(mfrow = c(1, 1))
        col = "blue", 
        cex = 1,
        offset = 0.5
-      )
+       )
   
   # construct legend
-  legend(c(0.20, 0.20), 
+  legend(c(0.75, 0.00), 
          legend = c(
            bquote(alpha == .(round(-a, 3)) ~ "[" * .(round(-cis[1], 3)) * "," ~ .(round(-cis[2], 3)) * "]"),
            bquote(italic(p) == .(round(p, 4)))
