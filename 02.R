@@ -13,7 +13,7 @@ output <- function(filename, figure, path = path){
     width = 10, 
     height = 5, 
     device = 'png', 
-    dpi = 700
+    dpi = 300 # larger DPI increases the size of the plot aesthetics 
     )
 }
 
@@ -95,8 +95,6 @@ fig2 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n ", round(q50, digits = 2), "B")), size = 8/ggplot2::.pt) + 
   ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n ", round(q80, digits = 2), "B")), size = 8/ggplot2::.pt) 
 
-
-
 # output figure
 output(
   filename = "fig2.png",
@@ -177,7 +175,6 @@ output(
   figure = fig4,
   path = path
   )
-
 
 
 
