@@ -13,7 +13,7 @@ output <- function(filename, figure, path = path){
     width = 10, 
     height = 5, 
     device = 'png', 
-    dpi = 300 # larger DPI increases the size of the plot aesthetics 
+    dpi = 250 # larger DPI increases the size of the plot aesthetics 
     )
 }
 
@@ -46,7 +46,8 @@ sp1500 <- equities %>%
 # the cumulative distribution of firm size for S&P 1,500 composite equity index
 fig1 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) +
-  ggplot2::theme_bw() + 
+  ggplot2::theme_bw() +
+  ggplot2::theme(text = ggplot2::element_text(size = 12)) +
   ggplot2::scale_x_log10() +
   ggplot2::scale_y_continuous(labels = scales::percent) +
   ggplot2::xlab("(Logged) Market Capitalization S&P 1,500 Composite, Billions (USD)") +
@@ -82,7 +83,7 @@ fig2 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
   ggplot2::theme_bw() +
-  ggplot2::theme(text = ggplot2::element_text(size = 12)) +
+  ggplot2::theme(text = ggplot2::element_text(size = 8)) +
   ggplot2::scale_x_log10() +
   ggplot2::scale_y_continuous(labels = scales::percent) +
   ggplot2::xlab("(Logged) Market Capitalization S&P 1,500 Composite, Billions (USD)") +
@@ -119,7 +120,7 @@ fig3 <- ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
   ggplot2::theme_bw() +
-  ggplot2::theme(text = ggplot2::element_text(size = 20)) +
+  ggplot2::theme(text = ggplot2::element_text(size = 8)) +
   ggplot2::scale_x_log10()+
   ggplot2::scale_y_continuous(labels = scales::percent) +
   ggplot2::xlab("(Logged) Market Capitalization S&P 500, Billions (USD)") +
@@ -156,7 +157,7 @@ fig4 <- ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
   ggplot2::theme_bw() +
-  ggplot2::theme(text = ggplot2::element_text(size = 20)) +
+  ggplot2::theme(text = ggplot2::element_text(size = 8)) +
   ggplot2::scale_x_log10()+
   ggplot2::scale_y_continuous(labels = scales::percent) +
   ggplot2::xlab("(Logged) Market Capitalization S&P 400, Billions (USD)") +
@@ -193,7 +194,7 @@ fig5 <- ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
   ggplot2::theme_bw() +
-  ggplot2::theme(text = ggplot2::element_text(size = 20)) +
+  ggplot2::theme(text = ggplot2::element_text(size = 8)) +
   ggplot2::scale_x_log10()+
   ggplot2::scale_y_continuous(labels = scales::percent) +
   ggplot2::xlab("(Logged) Market Capitalization S&P 600, Billions (USD)") +
