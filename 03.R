@@ -12,12 +12,6 @@
 # install.packages(c("poweRlaw", "ggplot2", "scales"))
 
 
-
-# rescale the market caps i.e., the sample space for the structural cut-off (xmin) of the power-law distribution is truncated at 1e+05
-equities <- equities %>% 
-  dplyr::mutate(Market_Value_Billions = Market_Value / 1e9) %>%
-  dplyr::filter(!is.na(Market_Value_Billions) & Market_Value_Billions > 0)
-
 # distribution of firm size by market caps
 size <- equities$Market_Value_Billions
 

@@ -10,7 +10,7 @@ output <- function(filename, figure, path = path){
     filename,
     figure,
     path = path, 
-    width = 5, 
+    width = 10, 
     height = 5, 
     device = 'png', 
     dpi = 700
@@ -21,6 +21,12 @@ output <- function(filename, figure, path = path){
 
 # call pipe to workspace
 `%>%` <- magrittr::`%>%`
+
+# rescale the market caps i.e., the sample space for the structural cut-off (xmin) of the power-law distribution is truncated at 1e+05
+equities <- equities %>% 
+  dplyr::mutate(Market_Value_Billions = Market_Value / 1e9) %>%
+  dplyr::filter(!is.na(Market_Value_Billions) & Market_Value_Billions > 0)
+
 
 # rank order the market cap by sector
 equities <- equities %>%
@@ -50,10 +56,10 @@ fig1 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   # mark 80% of firms
   ggplot2::geom_vline(data = sp1500, ggplot2::aes(xintercept = q50), linewidth = 1, linetype = "dashed", color = "red") +
   # label the lines
-  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
-  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
+  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/ggplot2::.pt) + 
+  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/ggplot2::.pt) 
 
-# appendix for outdegree degree distribution
+# output figure
 output(
   filename = "fig1.png",
   figure = fig1,
@@ -72,7 +78,7 @@ sp1500 <- equities %>%
   dplyr::ungroup()
 
 # construct the plot
-ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
+fig2 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
   ggplot2::theme_bw() +
@@ -86,10 +92,17 @@ ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   # mark 80% of firms
   ggplot2::geom_vline(data = sp1500, ggplot2::aes(xintercept = q50), linewidth = 1, linetype = "dashed", color = "red") +
   # label the lines
-  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n ", round(q50, digits = 2), "B")), size = 8/.pt) + 
-  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n ", round(q80, digits = 2), "B")), size = 8/.pt) 
+  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n ", round(q50, digits = 2), "B")), size = 8/ggplot2::.pt) + 
+  ggplot2::geom_label(data = sp1500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n ", round(q80, digits = 2), "B")), size = 8/ggplot2::.pt) 
 
 
+
+# output figure
+output(
+  filename = "fig2.png",
+  figure = fig2,
+  path = path
+  )
 
 
 
@@ -104,7 +117,7 @@ sp500 <- equities %>%
   dplyr::ungroup()
 
 # construct the plot
-ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
+fig3 <- ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
   ggplot2::theme_bw() +
@@ -118,10 +131,15 @@ ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
   # mark 80% of firms
   ggplot2::geom_vline(data = sp500, ggplot2::aes(xintercept = q50), linewidth = 1, linetype = "dashed", color = "red") +
   # label the lines
-  ggplot2::geom_label(data = sp500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
-  ggplot2::geom_label(data = sp500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
+  ggplot2::geom_label(data = sp500, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/ggplot2::.pt) + 
+  ggplot2::geom_label(data = sp500, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/ggplot2::.pt) 
 
-
+# output figure
+output(
+  filename = "fig3.png",
+  figure = fig3,
+  path = path
+  )
 
 
 
@@ -136,7 +154,7 @@ mid_cap <- equities %>%
   dplyr::ungroup()
 
 # construct the plot
-ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
+fig4 <- ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
   ggplot2::theme_bw() +
@@ -150,9 +168,15 @@ ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
   # mark 80% of firms
   ggplot2::geom_vline(data = mid_cap, ggplot2::aes(xintercept = q50), linewidth = 1, linetype = "dashed", color = "red") +
   # label the lines
-  ggplot2::geom_label(data = mid_cap, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
-  ggplot2::geom_label(data = mid_cap, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
+  ggplot2::geom_label(data = mid_cap, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/ggplot2::.pt) + 
+  ggplot2::geom_label(data = mid_cap, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/ggplot2::.pt) 
 
+# output figure
+output(
+  filename = "fig4.png",
+  figure = fig4,
+  path = path
+  )
 
 
 
@@ -168,7 +192,7 @@ small_cap <- equities %>%
   dplyr::ungroup()
 
 # construct the plot
-ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
+fig5 <- ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4) +
   ggplot2::theme_bw() +
@@ -182,8 +206,15 @@ ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
   # mark 80% of frims
   ggplot2::geom_vline(data = small_cap, ggplot2::aes(xintercept = q50), linewidth = 1, linetype = "dashed", color = "red") +
   # label the lines
-  ggplot2::geom_label(data = small_cap, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/.pt) + 
-  ggplot2::geom_label(data = small_cap, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/.pt) 
+  ggplot2::geom_label(data = small_cap, mapping = ggplot2::aes(x = q50, y = 0.25, label = paste("\u2264 50% of firms:\n", round(q50, digits = 2), "B")), size = 8/ggplot2::.pt) + 
+  ggplot2::geom_label(data = small_cap, mapping = ggplot2::aes(x = q80, y = 0.50, label = paste("\u2264 80% of firms:\n", round(q80, digits = 2), "B")), size = 8/ggplot2::.pt) 
+
+# output figure
+output(
+  filename = "fig5.png",
+  figure = fig5,
+  path = path
+  )
 
 
 
