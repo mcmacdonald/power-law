@@ -296,7 +296,7 @@ par(mfrow = c(1, 1))
        labels = format(y_ticks, scientific = FALSE, drop0trailing = TRUE), las = 1)
 
   # calculate position for labels on the y-axis (in log space)
-  y_label_pos <- 10^(log10(y_min * 0.8) - 0.05 * (log10(y_max) - log10(y_min * 0.8)))
+  y_label_pos <- 10^(log10(y_min * 0.8) - 0.08 * (log10(y_max) - log10(y_min * 0.8)))
   
   # angle text labels on the x-axis
   for (i in seq_along(x_ticks)) {
