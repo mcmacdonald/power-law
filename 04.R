@@ -288,7 +288,7 @@ par(mfrow = c(1, 1))
   axis(1, at = x_ticks, labels = FALSE, tcl = -0.5)
   
   # y-axis
-  y_tricks <- c(0.0001, 0.001, 0.01, 0.1, 1)
+  y_ticks <- c(0.0001, 0.001, 0.01, 0.1, 1)
   axis(2, at = y_ticks, 
        # don't run
        # run this line instead for scientific notation
@@ -355,7 +355,7 @@ par(mfrow = c(1, 1))
          )
 }
 
-grDevices::png(file.path(path, "fig7.png"), width = 10, height = 5, units = "in", res = 250)
+grDevices::png(file.path(path, "fig07.png"), width = 10, height = 5, units = "in", res = 250)
 mle_plot( # energy equities
   mle = mle_tech, 
   cis = cis_tech, 
@@ -364,7 +364,7 @@ mle_plot( # energy equities
   )
 grDevices::dev.off()
 
-grDevices::png(file.path(path, "fig8.png"), width = 10, height = 5, units = "in", res = 250)
+grDevices::png(file.path(path, "fig08.png"), width = 10, height = 5, units = "in", res = 250)
 mle_plot( # energy equities
   mle = mle_energy, 
   cis = cis_energy, 
@@ -373,7 +373,7 @@ mle_plot( # energy equities
   )
 grDevices::dev.off()
 
-grDevices::png(file.path(path, "fig9.png"), width = 10, height = 5, units = "in", res = 250)
+grDevices::png(file.path(path, "fig09.png"), width = 10, height = 5, units = "in", res = 250)
 mle_plot( # health care equities
   mle = mle_healthcare, 
   cis = cis_healthcare, 

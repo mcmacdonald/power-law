@@ -44,7 +44,7 @@ sp1500 <- equities %>%
     )
 
 # the cumulative distribution of firm size for S&P 1,500 composite equity index
-fig1 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
+fig01 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
@@ -62,8 +62,8 @@ fig1 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
 
 # output figure
 output(
-  filename = "fig1.png",
-  figure = fig1,
+  filename = "fig01.png",
+  figure = fig01,
   path = path,
   width = 10,
   height = 5
@@ -81,7 +81,7 @@ sp1500 <- equities %>%
   dplyr::ungroup()
 
 # construct the plot
-fig2 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
+fig02 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
@@ -100,8 +100,8 @@ fig2 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
 
 # output figure
 output(
-  filename = "fig2.png",
-  figure = fig2,
+  filename = "fig02.png",
+  figure = fig02,
   path = path,
   width = 10,
   height = 5
@@ -120,7 +120,7 @@ sp500 <- equities %>%
   dplyr::ungroup()
 
 # construct the plot
-fig3 <- ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
+fig03 <- ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
@@ -139,8 +139,8 @@ fig3 <- ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
 
 # output figure
 output(
-  filename = "fig3.png",
-  figure = fig3,
+  filename = "fig03.png",
+  figure = fig03,
   path = path,
   width = 10,
   height = 5
@@ -159,7 +159,7 @@ mid_cap <- equities %>%
   dplyr::ungroup()
 
 # construct the plot
-fig4 <- ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
+fig04 <- ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
@@ -178,8 +178,8 @@ fig4 <- ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
 
 # output figure
 output(
-  filename = "fig4.png",
-  figure = fig4,
+  filename = "fig04.png",
+  figure = fig04,
   path = path,
   width = 10,
   height = 5
@@ -198,7 +198,7 @@ small_cap <- equities %>%
   dplyr::ungroup()
 
 # construct the plot
-fig5 <- ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
+fig05 <- ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
@@ -217,8 +217,8 @@ fig5 <- ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
 
 # output figure
 output(
-  filename = "fig5.png",
-  figure = fig5,
+  filename = "fig05.png",
+  figure = fig05,
   path = path,
   width = 10,
   height = 5

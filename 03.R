@@ -282,7 +282,7 @@ output <- function(filename, plot_fun, path = path, width = 10, height = 5){
 
 # output figure
 output(
-  filename = "fig6.png",
+  filename = "fig06.png",
   plot_fun = plot_fun,
   path = path,
   width = 10,
