@@ -293,7 +293,7 @@ output <- function(filename, plot_fun, path = path, width = 10, height = 5){
       res = 250
     )
   plot_fun() # call the function
-  dev.off()
+  grDevices::dev.off()
 }
 
 # output figure
