@@ -1,0 +1,1 @@
+Figures illustrate the distribution of firm size by their market capitalization. I flag the 50th percentiles and 80th percentiles, which indicate the range of the market caps for 50% and 80% of all firms within and across different sectors.

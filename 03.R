@@ -18,6 +18,7 @@ path <- "fig/pl_fit/"
 
   # maximum likelihood estimation of the power-law distribution
   # see https://www.rdocumentation.org/packages/poweRlaw/versions/0.70.6
+  # see also Clauset, A., Shalizi, C. R., & Newman, M. E. 2009. Power-law distributions in empirical data. SIAM review, 51(4), 661-703.
   mle <- poweRlaw::conpl(size)
   
   # estimate the structural cut-off point for the power law distribution

@@ -34,6 +34,7 @@ mle <- function(data, sector, distribution){
   
   # maximum likelihood estimation of the power-law distribution
   require("poweRlaw") # see https://www.rdocumentation.org/packages/poweRlaw/versions/0.70.6
+  # see also Clauset, A., Shalizi, C. R., & Newman, M. E. 2009. Power-law distributions in empirical data. SIAM review, 51(4), 661-703.
   mle <- poweRlaw::conpl(data)
   
   # don't run
