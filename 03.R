@@ -75,27 +75,43 @@ path <- "fig/pl_fit/"
   
   # compute p-value for the hypothesis test
   # i.e., does the statistical distribution of equities resemble the power-law distribution?
-  p <- poweRlaw::bootstrap_p(
-    m = mle, 
-    no_of_sims = 1000,
-    # don't run
-    # this code computes error in decay parameter for any plausible structural cut-off k throughout the statistical distribution
-    # xmins = seq(xmin, xmax, 1), # estimates xmins in the distribution
-    xmins = xmin,
-    # xmax = kn,
-    threads = 10, # more threads speed up the procedure
-    distance = "reweight",
-    seed = 20110210 # Halle's birthday
-    )
-  p <- p$p # p-value
-  
-  # hypothesis test
-  cat("interpretation: \n\n")
-  cat("null hypothesis: statistical distribution resembles the power law distribution.\n\n")
-  cat("alternate hypothesis: statistical distribution does not resemble the power law distribution.\n\n")
-  cat("statistical significance (p < 0.05) provides evidence to reject the null hypothesis.\n\n")
-  cat("p = "); cat(p)
-  
+  mle_p <- function(mle, nsim){
+    
+    # required packages
+    require("poweRlaw")
+    
+    # structural cut-off values for bootstrapping
+    xmin <- round(mle$xmin, digits = 4) # round the structural cut-off
+    
+    # maximum value of the statistical distribution
+    xmax <- max(mle$dat)
+    xmax <- round(xmax, digits = 4)
+    
+    # calculate statistical significance
+    p <- poweRlaw::bootstrap_p(
+      m = mle, 
+      no_of_sims = nsim,
+      # don't run
+      # this code computes error in decay parameter for any plausible structural cut-off k throughout the statistical distribution
+      # xmins = seq(xmin, xmax, 1), # estimates xmins in the distribution
+      xmins = xmin,
+      # xmax = kn,
+      threads = 10, # more threads speed up the procedure
+      distance = "reweight",
+      seed = 20110210 # Halle's birthday
+      )
+    
+    # return
+    p <- p$p # p-value
+    # hypothesis test
+    cat("interpretation: \n\n")
+    cat("null hypothesis: statistical distribution resembles the power law distribution.\n\n")
+    cat("alternate hypothesis: statistical distribution does not resemble the power law distribution.\n\n")
+    cat("statistical significance (p < 0.05) provides evidence to reject the null hypothesis.\n\n")
+    cat("p = "); cat(p)
+    return(p)
+  }
+  p <- mle_p(mle = mle, nsim = 1000)
   
   
   
