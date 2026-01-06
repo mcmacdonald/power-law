@@ -219,7 +219,7 @@ plot_fun <- function(){
   mtext("Market Capitalization (USD)", side = 1, line = 5, cex = 1)
   
   # shaded confidence band
-  graphics:: polygon(c(x_seq, rev(x_seq)), 
+  graphics::polygon(c(x_seq, rev(x_seq)), 
           c(ccdf_lo, rev(ccdf_hi)), 
           col = rgb(1, 0, 0, 0.2), 
           border = NA

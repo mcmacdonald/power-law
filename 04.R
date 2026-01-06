@@ -230,7 +230,7 @@ ccdf_lo <- ccdf(cis[1])
 # define the plot dimensions
 x_min <- 0.01 # 10M minimum
 x_max <- leader
-y_min <- 0.0001
+y_min <- 0.001
 y_max <- 1
 
 # plot dimensions
@@ -288,7 +288,7 @@ par(mfrow = c(1, 1))
   axis(1, at = x_ticks, labels = FALSE, tcl = -0.5)
   
   # y-axis
-  y_ticks <- c(0.0001, 0.001, 0.01, 0.1, 1)
+  y_ticks <- c(0.001, 0.01, 0.1, 1)
   axis(2, at = y_ticks, 
        # don't run
        # run this line instead for scientific notation
@@ -296,7 +296,7 @@ par(mfrow = c(1, 1))
        labels = format(y_ticks, scientific = FALSE, drop0trailing = TRUE), las = 1)
 
   # calculate position for labels on the y-axis (in log space)
-  y_label_pos <- 10^(log10(0.0001 * 0.8) - 0.05 * (log10(1) - log10(0.0001 * 0.8)))
+  y_label_pos <- 10^(log10(0.0001 * 0.8) - 0.08 * (log10(1) - log10(0.0001 * 0.8)))
   
   # angle text labels on the x-axis
   for (i in seq_along(x_ticks)) {
