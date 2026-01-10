@@ -22,10 +22,6 @@ output <- function(filename, figure, path = path, width = 10, height = 5){
 # call pipe to workspace
 `%>%` <- magrittr::`%>%`
 
-# rescale the market caps i.e., the sample space for the structural cut-off (xmin) of the power-law distribution is truncated at 1e+05
-equities <- equities %>% 
-  dplyr::mutate(Market_Value_Billions = Market_Value / 1e9) %>%
-  dplyr::filter(!is.na(Market_Value_Billions) & Market_Value_Billions > 0)
 
 
 # rank order the market cap by sector
