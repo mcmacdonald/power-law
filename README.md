@@ -1,6 +1,6 @@
 This repository contains .R files that:
 
-1) download BlackRock's iShare's data for the S&P 500, S&P 400 (mid-cap ETFs), and S&P 600 (small-cap ETFs)
+1) download BlackRock's iShares data for the S&P 500, S&P 400 (mid-cap ETFs), and S&P 600 (small-cap ETFs)
 2) join them together to get their ETF holdings in the S&P Composite 1,500 equity index
 3) analyze their ETF holdings in the S&P Composite 1,500
 4) analyze whether their ETF holdings in S&P Composite 1,500 resembles a power-law distribution
