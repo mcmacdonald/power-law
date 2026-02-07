@@ -8,13 +8,13 @@ path <- "fig/pl_fit/"
 # install packages used to conduct analysis
 # install.packages(c("poweRlaw", "ggplot2", "scales"))
 
-# maximum likelihood estimation of the distribution of assets under management --------------------------
+# maximum likelihood estimation of the distribution of holdings --------------------------
 
   # replication
   set.seed(15092022) # Huddy's birthday
 
-  # distribution of assets under management
-  size <- equities$aum
+  # distribution of holdings
+  size <- equities$holdings
 
   # maximum likelihood estimation of the power-law distribution
   # see https://www.rdocumentation.org/packages/poweRlaw/versions/0.70.6
@@ -75,7 +75,7 @@ path <- "fig/pl_fit/"
   
   
   # compute p-value for the hypothesis test
-  # i.e., does the statistical distribution of equities resemble the power-law distribution?
+  # i.e., does the statistical distribution of equity holdings resemble the power-law distribution?
   mle_p <- function(mle, nsim){
     
     # required packages
@@ -165,9 +165,9 @@ plot_fun <- function(){
        panel.first = grid(),
        xlim = c(x_min * 0.8, x_max * 1.2),
        ylim = c(y_min * 0.8, 1),
-       xlab = "Market Capitalization (USD)", 
+       xlab = "Holdings (USD)", 
        ylab = "Complementary Cumulative Distribution Function (CCDF)",
-       main = "Market Capitalization for Firms listed on the S&P 1,500 Composite Index",
+       main = "Holdings in equities listed on the S&P 1,500 Composite Index",
        axes = FALSE, frame = TRUE
        )
   
@@ -233,7 +233,7 @@ plot_fun <- function(){
   }
   
   # x-axis title i.e., adjust line to make room
-  mtext("Assets under management (USD)", side = 1, line = 5, cex = 1)
+  mtext("Holdings (USD)", side = 1, line = 5, cex = 1)
   
   # shaded confidence band
   graphics::polygon(c(x_seq, rev(x_seq)), 
@@ -250,7 +250,7 @@ plot_fun <- function(){
   
   # add legend for the structural cut-off
   xmin_label <- if (xmin < 1) {
-    paste0("Equities with at least $", round(xmin * 1000, 0), "M in assets under management")
+    paste0("Equities with at least $", round(xmin * 1000, 0), "M in holdings")
   } else {
     paste0("$", round(xmin, 2), "B")
   }
