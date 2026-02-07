@@ -18,10 +18,7 @@
   # url to S&P 600 i.e., small-cap equities
   url_s <- "https://www.ishares.com/us/products/239774/ishares-core-sp-smallcap-etf/1467271812596.ajax?fileType=csv&fileName=IJR_holdings&dataType=fund"
   
-  library(tidyquant)
-  sp500 <- tq_index("SP500")
-  market_caps <- tq_get(sp500$symbol, get = "stock.prices") %>%
-    # Calculate from shares outstanding × price
+
 
 # function to import data from the wild
 import <- function(url, skip.rows){
