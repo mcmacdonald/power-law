@@ -81,7 +81,7 @@ s_cap <- s_cap %>% dplyr::filter(Type == "EQUITY") %>% dplyr::select(-Type)
 # ... together, the weighted sums and the correlation coefficents indicate the measures to be redundant
 
 # total weighted portfolio weights should sum to one hundred, with some error
-test <- 100 - 2 # use as reference point for tests i,.e., market cap sums up to ninety eight (98%)
+test <- 100 - 2 # use as reference point for tests i,.e., portfolio weights sum up to ninety eight percent (98%)
 
 # large-cap equities
 l_cap %>% dplyr::summarise(w_sum = sum(`Weight_(%)`, na.rm = TRUE)) >= test
@@ -151,10 +151,10 @@ equities <- equities %>% dplyr::filter(Sector != "CASH AND/OR DERIVATIVES")
 
 
 
-# rescale the market caps i.e., the sample space for the structural cut-off (xmin) of the power-law distribution is truncated at 1e+05
+# rescale the assests under management (AUM) i.e., the sample space for the structural cut-off (xmin) of the power-law distribution is truncated at 1e+05
 equities <- equities %>% 
-  dplyr::mutate(Market_Value_Billions = Market_Value / 1e12) %>%
-  dplyr::filter(!is.na(Market_Value_Billions) & Market_Value_Billions > 0)
+  dplyr::mutate(aum = Market_Value / 1e12) %>%
+  dplyr::filter(!is.na(aum) & aum > 0)
 
 
 
