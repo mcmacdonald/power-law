@@ -174,6 +174,9 @@ plot_fun <- function(){
   # custom x-axis with readable labels
   x_ticks <- c( # define tick locations (in billions)
     # millions
+    0.00001,
+    0.0001,
+    0.001,
     0.01, 
     0.02, 
     0.05,
@@ -268,7 +271,7 @@ plot_fun <- function(){
       )
   
   # construction legend
-  legend(c(0.30, 0.20), 
+  legend(c(0.20, 0.20), 
          legend = c(
            bquote(alpha == .(round(-a, 3)) ~ "[" * .(round(-cis[1], 3)) * "," ~ .(round(-cis[2], 3)) * "]"),
            bquote(italic(p) == .(round(p, 4)))
