@@ -282,7 +282,7 @@ plot_fun <- function(){
 
 # don't run
 # screenshot of the plot
-#fig6 <- grDevices::recordPlot()
+# fig6 <- grDevices::recordPlot()
   
 # function to output high resolution images
 output <- function(filename, plot_fun, path = path, width = 10, height = 5){
