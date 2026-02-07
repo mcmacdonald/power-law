@@ -10,10 +10,10 @@ path <- "fig/pl_fit/"
 
 
 # largest investment across sectors
-leader <- max(equities$aum)
+leader <- max(equities$holdings)
 
 
-# maximum likelihood estimation of the distribution of assets under management --------------------------
+# maximum likelihood estimation of the distribution of equity holdings --------------------------
 mle <- function(data, sector, distribution){
 
   # required packages
@@ -57,37 +57,37 @@ mle <- function(data, sector, distribution){
 mle_tech <- mle(
   data = equities, 
   sector = "INFORMATION TECHNOLOGY", 
-  distribution = "aum"
+  distribution = "holdings"
   )
 mle_energy <- mle(
   data = equities, 
   sector = "ENERGY", 
-  distribution = "aum"
+  distribution = "holdings"
   )
 mle_healthcare <- mle(
   data = equities, 
   sector = "HEALTH CARE", 
-  distribution = "aum"
+  distribution = "holdings"
   )
 mle_industrials <- mle(
   data = equities, 
   sector = "INDUSTRIALS", 
-  distribution = "aum"
+  distribution = "holdings"
   )
 mle_materials <- mle(
   data = equities, 
   sector = "MATERIALS", 
-  distribution = "aum"
+  distribution = "holdings"
   )
 mle_utilities <- mle(
   data = equities, 
   sector = "UTILITIES", 
-  distribution = "aum"
+  distribution = "holdings"
   )
 mle_realestate <- mle(
   data = equities, 
   sector = "REAL ESTATE", 
-  distribution = "aum"
+  distribution = "holdings"
   )
 
 
@@ -146,7 +146,7 @@ mle_confint <- function(mle, nsim){
 
 
 # compute p-value for the hypothesis test --------------------------------------------------------------
-# i.e., does the statistical distribution of equities resemble the power-law distribution?
+# i.e., does the statistical distribution of equity holdings resemble the power-law distribution?
 mle_p <- function(mle, nsim){
 
    # required packages
@@ -197,7 +197,7 @@ p_realestate <- mle_p(mle = mle_realestate, nsim = 1000)
 
 
 
-# plot the statistical distribution of assets under management ---------------------------------------------------
+# plot the statistical distribution of holdings ---------------------------------------------------
 mle_plot <- function(mle, cis, p, title){
 
 # full empirical distribution for plotting
@@ -244,7 +244,7 @@ par(mfrow = c(1, 1))
        panel.first = grid(),
        xlim = c(x_min * 0.8, x_max * 1.2),
        ylim = c(y_min * 0.8, 1),
-       xlab = "Assets under management (USD)", 
+       xlab = "Holdings (USD)", 
        ylab = "Complementary Cumulative Distribution Function (CCDF)",
        main = title,
        axes = FALSE, frame = TRUE
@@ -312,7 +312,7 @@ par(mfrow = c(1, 1))
   }
   
   # x-axis title i.e., adjust line to make room
-  mtext("Assets under management (USD)", side = 1, line = 5, cex = 1)
+  mtext("Holdings (USD)", side = 1, line = 5, cex = 1)
   
   # shaded confidence band
   graphics:: polygon(c(x_seq, rev(x_seq)), 
@@ -329,7 +329,7 @@ par(mfrow = c(1, 1))
   
   # add legend for the structural cut-off
   xmin_label <- if (xmin < 1) {
-    paste0("Equities with at least $", round(xmin * 1000, 0), "M in assets under management")
+    paste0("Equities with at least $", round(xmin * 1000, 0), "M in holdings")
   } else {
     paste0("$", round(xmin, 2), "B")
   }
@@ -361,7 +361,7 @@ mle_plot( # energy equities
   mle = mle_tech, 
   cis = cis_tech, 
   p = p_tech,
-  title = "Assets under management for Tech Firms listed on the S&P 1,500 Composite Index"
+  title = "Holdings for Tech Firms listed on the S&P 1,500 Composite Index"
   )
 grDevices::dev.off()
 
@@ -370,7 +370,7 @@ mle_plot( # energy equities
   mle = mle_energy, 
   cis = cis_energy, 
   p = p_energy,
-  title = "Assets under management for Energy Firms listed on the S&P 1,500 Composite Index"
+  title = "Holdings for Energy Firms listed on the S&P 1,500 Composite Index"
   )
 grDevices::dev.off()
 
@@ -379,7 +379,7 @@ mle_plot( # health care equities
   mle = mle_healthcare, 
   cis = cis_healthcare, 
   p = p_healthcare,
-  title = "Assets under management for Health Care Firms listed on the S&P 1,500 Composite Index"
+  title = "Holdings for Health Care Firms listed on the S&P 1,500 Composite Index"
   )
 grDevices::dev.off()
 
@@ -388,7 +388,7 @@ mle_plot( # industrial equities
   mle = mle_industrials, 
   cis = cis_industrials, 
   p = p_industrials,
-  title = "Assets under management for Industrial Firms listed on the S&P 1,500 Composite Index"
+  title = "Holdings for Industrial Firms listed on the S&P 1,500 Composite Index"
   )
 grDevices::dev.off()
 
@@ -397,7 +397,7 @@ mle_plot( # materials equities
   mle = mle_materials, 
   cis = cis_materials, 
   p = p_materials,
-  title = "Assets under management for Materials Firms listed on the S&P 1,500 Composite Index"
+  title = "Holdings for Materials Firms listed on the S&P 1,500 Composite Index"
   )
 grDevices::dev.off()
 
@@ -406,7 +406,7 @@ mle_plot( # utilities equities
   mle = mle_utilities, 
   cis = cis_utilities, 
   p = p_utilities,
-  title = "Assets under management for Utility Firms listed on the S&P 1,500 Composite Index"
+  title = "Holdings for Utility Firms listed on the S&P 1,500 Composite Index"
   )
 grDevices::dev.off()
 
@@ -415,7 +415,7 @@ mle_plot( # real estate equities
   mle = mle_realestate, 
   cis = cis_realestate, 
   p = p_realestate,
-  title = "Assets under management for Real Estate Firms listed on the S&P 1,500 Composite Index"
+  title = "Holdings for Real Estate Firms listed on the S&P 1,500 Composite Index"
   )
 grDevices::dev.off()
 
