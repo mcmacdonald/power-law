@@ -271,13 +271,13 @@ plot_fun <- function(){
       )
   
   # construction legend
-  legend(c(0.75, 0.0), 
+  legend(c(0.20, 0.10), 
          legend = c(
            bquote(alpha == .(round(-a, 3)) ~ "[" * .(round(-cis[1], 3)) * "," ~ .(round(-cis[2], 3)) * "]"),
            bquote(italic(p) == .(round(p, 4)))
            ),
          bty = "n", 
-         cex = 1
+         cex = 0.5
          )
 }
 
