@@ -44,7 +44,7 @@ fig01 <- ggplot2::ggplot(sp1500, ggplot2::aes(holdings)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
-  ggplot2::scale_x_log10() +
+  ggplot2::scale_x_log10(labels = scales::label_number(accuracy = 0.01)) +
   ggplot2::scale_y_continuous(labels = scales::percent) +
   ggplot2::xlab("(Logged) Holdings in S&P 1,500 Composite, Billions (USD)") +
   ggplot2::ylab("Empiricial Cumulative Distribution Function (ECDF)") +
@@ -82,7 +82,7 @@ fig02 <- ggplot2::ggplot(sp1500, ggplot2::aes(holdings)) +
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
-  ggplot2::scale_x_log10() +
+  ggplot2::scale_x_log10(labels = scales::label_number(accuracy = 0.01)) +
   ggplot2::scale_y_continuous(labels = scales::percent) +
   ggplot2::xlab("(Logged) Holdings in S&P 1,500 Composite, Billions (USD)") +
   ggplot2::ylab("Empiricial Cumulative Distribution Function (ECDF)") +
@@ -116,12 +116,12 @@ sp500 <- equities %>%
   dplyr::ungroup()
 
 # construct the plot
-fig03 <- ggplot2::ggplot(sp500, ggplot2::aes(aum)) +
+fig03 <- ggplot2::ggplot(sp500, ggplot2::aes(holdings)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
-  ggplot2::scale_x_log10()+
+  ggplot2::scale_x_log10(labels = scales::label_number(accuracy = 0.01))+
   ggplot2::scale_y_continuous(labels = scales::percent) +
   ggplot2::xlab("(Logged) Holdings in S&P 500, Billions (USD)") +
   ggplot2::ylab("Empiricial Cumulative Distribution Function (ECDF)") +
@@ -149,8 +149,8 @@ mid_cap <- equities %>%
   dplyr::filter(Index == "S&P 400") %>%
   dplyr::group_by(Sector) %>%
   dplyr::mutate(
-    q50 = stats::quantile(aum, probs = 0.50), # 50% of holdings
-    q80 = stats::quantile(aum, probs = 0.80) # 80% of holdings
+    q50 = stats::quantile(holdings, probs = 0.50), # 50% of holdings
+    q80 = stats::quantile(holdings, probs = 0.80) # 80% of holdings
   ) %>%
   dplyr::ungroup()
 
@@ -160,7 +160,7 @@ fig04 <- ggplot2::ggplot(mid_cap, ggplot2::aes(holdings)) +
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
-  ggplot2::scale_x_log10()+
+  ggplot2::scale_x_log10(labels = scales::label_number(accuracy = 0.01))+
   ggplot2::scale_y_continuous(labels = scales::percent) +
   ggplot2::xlab("(Logged) Holdings in S&P 400, Billions (USD)") +
   ggplot2::ylab("Empiricial Cumulative Distribution Function (ECDF)") +
@@ -199,7 +199,7 @@ fig05 <- ggplot2::ggplot(small_cap, ggplot2::aes(holdings)) +
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
-  ggplot2::scale_x_log10()+
+  ggplot2::scale_x_log10(labels = scales::label_number(accuracy = 0.01))+
   ggplot2::scale_y_continuous(labels = scales::percent) +
   ggplot2::xlab("(Logged) Holdings in S&P 600, Billions (USD)") +
   ggplot2::ylab("Empiricial Cumulative Distribution Function (ECDF)") +
