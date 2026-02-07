@@ -27,7 +27,7 @@ output <- function(filename, figure, path = path, width = 10, height = 5){
 # rank order the market cap by sector
 equities <- equities %>%
   dplyr::group_by(Sector) %>%
-  dplyr::mutate(Rank = dplyr::dense_rank(dplyr::desc(Market_Value_Billions))) %>% # rank order
+  dplyr::mutate(Rank = dplyr::dense_rank(dplyr::desc(aum))) %>% # rank order
   dplyr::mutate(Case = dplyr::row_number()) %>% # case number for sorting
   dplyr::ungroup() %>%
   dplyr::arrange(Sector, Case, Rank) # sort
@@ -35,18 +35,18 @@ equities <- equities %>%
 # calculate quantiles for the cumulative distribution function
 sp1500 <- equities %>%
   dplyr::mutate(
-    q50 = stats::quantile(Market_Value_Billions, probs = 0.50), # calculate size of 50% of firms 
-    q80 = stats::quantile(Market_Value_Billions, probs = 0.80) # calculate size of 80% of firms
+    q50 = stats::quantile(aum, probs = 0.50), # calculate size of 50% of firms 
+    q80 = stats::quantile(aum, probs = 0.80) # calculate size of 80% of firms
     )
 
 # the cumulative distribution of firm size for S&P 1,500 composite equity index
-fig01 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
+fig01 <- ggplot2::ggplot(sp1500, ggplot2::aes(aum)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
   ggplot2::scale_x_log10() +
   ggplot2::scale_y_continuous(labels = scales::percent) +
-  ggplot2::xlab("(Logged) Market Capitalization S&P 1,500 Composite, Billions (USD)") +
+  ggplot2::xlab("(Logged) Assets under management S&P 1,500 Composite, Billions (USD)") +
   ggplot2::ylab("Empiricial Cumulative Distribution Function (ECDF)") +
   # mark 50% of firms
   ggplot2::geom_vline(data = sp1500, ggplot2::aes(xintercept = q80), linewidth = 1, linetype = "dashed", color = "red") +
@@ -71,21 +71,21 @@ output(
 sp1500 <- equities %>%
   dplyr::group_by(Sector) %>%
   dplyr::mutate(
-    q50 = stats::quantile(Market_Value_Billions, probs = 0.50), # calculate size of 50% of firms 
-    q80 = stats::quantile(Market_Value_Billions, probs = 0.80) # calculate size of 80% of firms
+    q50 = stats::quantile(aum, probs = 0.50), # calculate size of 50% of firms 
+    q80 = stats::quantile(aum, probs = 0.80) # calculate size of 80% of firms
     ) %>%
   dplyr::ungroup()
 
 # construct the plot
-fig02 <- ggplot2::ggplot(sp1500, ggplot2::aes(Market_Value_Billions)) +
+fig02 <- ggplot2::ggplot(sp1500, ggplot2::aes(aum)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
   ggplot2::scale_x_log10() +
   ggplot2::scale_y_continuous(labels = scales::percent) +
-  ggplot2::xlab("(Logged) Market Capitalization S&P 1,500 Composite, Billions (USD)") +
-  ggplot2::ylab("EmpiricialCumulative Distribution Function (ECDF)") +
+  ggplot2::xlab("(Logged) Assets under management S&P 1,500 Composite, Billions (USD)") +
+  ggplot2::ylab("Empiricial Cumulative Distribution Function (ECDF)") +
   # mark 50% of firms
   ggplot2::geom_vline(data = sp1500, ggplot2::aes(xintercept = q80), linewidth = 1, linetype = "dashed", color = "red") +
   # mark 80% of firms
@@ -110,21 +110,21 @@ sp500 <- equities %>%
   dplyr::filter(Index == "S&P 500") %>%
   dplyr::group_by(Sector) %>%
   dplyr::mutate(
-    q50 = stats::quantile(Market_Value_Billions, probs = 0.50), # calculate size of 50% of firms 
-    q80 = stats::quantile(Market_Value_Billions, probs = 0.80) # calculate size of 80% of firms
+    q50 = stats::quantile(aum, probs = 0.50), # calculate size of 50% of firms 
+    q80 = stats::quantile(aum, probs = 0.80) # calculate size of 80% of firms
   ) %>%
   dplyr::ungroup()
 
 # construct the plot
-fig03 <- ggplot2::ggplot(sp500, ggplot2::aes(Market_Value_Billions)) +
+fig03 <- ggplot2::ggplot(sp500, ggplot2::aes(aum)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
   ggplot2::scale_x_log10()+
   ggplot2::scale_y_continuous(labels = scales::percent) +
-  ggplot2::xlab("(Logged) Market Capitalization S&P 500, Billions (USD)") +
-  ggplot2::ylab("EmpiricialCumulative Distribution Function (ECDF)") +
+  ggplot2::xlab("(Logged) Assets under managementn S&P 500, Billions (USD)") +
+  ggplot2::ylab("Empiricial Cumulative Distribution Function (ECDF)") +
   # mark 50% of firms
   ggplot2::geom_vline(data = sp500, ggplot2::aes(xintercept = q80), linewidth = 1, linetype = "dashed", color = "red") +
   # mark 80% of firms
@@ -149,21 +149,21 @@ mid_cap <- equities %>%
   dplyr::filter(Index == "S&P 400") %>%
   dplyr::group_by(Sector) %>%
   dplyr::mutate(
-    q50 = stats::quantile(Market_Value_Billions, probs = 0.50), # calculate size of 50% of firms 
-    q80 = stats::quantile(Market_Value_Billions, probs = 0.80) # calculate size of 80% of firms
+    q50 = stats::quantile(aum, probs = 0.50), # calculate size of 50% of firms 
+    q80 = stats::quantile(aum, probs = 0.80) # calculate size of 80% of firms
   ) %>%
   dplyr::ungroup()
 
 # construct the plot
-fig04 <- ggplot2::ggplot(mid_cap, ggplot2::aes(Market_Value_Billions)) +
+fig04 <- ggplot2::ggplot(mid_cap, ggplot2::aes(aum)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
   ggplot2::scale_x_log10()+
   ggplot2::scale_y_continuous(labels = scales::percent) +
-  ggplot2::xlab("(Logged) Market Capitalization S&P 400, Billions (USD)") +
-  ggplot2::ylab("EmpiricialCumulative Distribution Function (ECDF)") +
+  ggplot2::xlab("(Logged) Assets under management S&P 400, Billions (USD)") +
+  ggplot2::ylab("Empiricial Cumulative Distribution Function (ECDF)") +
   # mark 50% of firms
   ggplot2::geom_vline(data = mid_cap, ggplot2::aes(xintercept = q80), linewidth = 1, linetype = "dashed", color = "red") +
   # mark 80% of firms
@@ -188,21 +188,21 @@ small_cap <- equities %>%
   dplyr::filter(Index == "S&P 600") %>%
   dplyr::group_by(Sector) %>%
   dplyr::mutate(
-    q50 = stats::quantile(Market_Value_Billions, probs = 0.50), # calculate size of 50% of firms 
-    q80 = stats::quantile(Market_Value_Billions, probs = 0.80) # calculate size of 80% of firms
+    q50 = stats::quantile(aum, probs = 0.50), # calculate size of 50% of firms 
+    q80 = stats::quantile(aum, probs = 0.80) # calculate size of 80% of firms
     ) %>%
   dplyr::ungroup()
 
 # construct the plot
-fig05 <- ggplot2::ggplot(small_cap, ggplot2::aes(Market_Value_Billions)) +
+fig05 <- ggplot2::ggplot(small_cap, ggplot2::aes(aum)) +
   ggplot2::stat_ecdf(geom = "step", linewidth = 1, col = "black", alpha = 1.00) + # geom = "area"
   ggplot2::facet_wrap(~ Sector, nrow = 3, ncol = 4, scales = "fixed") +
   ggplot2::theme_bw() +
   ggplot2::theme(text = ggplot2::element_text(size = 12)) +
   ggplot2::scale_x_log10()+
   ggplot2::scale_y_continuous(labels = scales::percent) +
-  ggplot2::xlab("(Logged) Market Capitalization S&P 600, Billions (USD)") +
-  ggplot2::ylab("EmpiricialCumulative Distribution Function (ECDF)") +
+  ggplot2::xlab("(Logged) Assets under management S&P 600, Billions (USD)") +
+  ggplot2::ylab("Empiricial Cumulative Distribution Function (ECDF)") +
   # mark 50% of firms
   ggplot2::geom_vline(data = small_cap, ggplot2::aes(xintercept = q80), linewidth = 1, linetype = "dashed", color = "red") +
   # mark 80% of frims
