@@ -26,7 +26,7 @@ mle <- function(data, sector, distribution){
   data <- data %>%
   # select sector
   dplyr::filter(Sector == {{sector}}) %>%
-  # retain the distribution of assets under management for equities
+  # retain the distribution of holdings for equities
   dplyr::pull({{distribution}}) # vector of numeric values
 
   # replication
