@@ -151,10 +151,10 @@ equities <- equities %>% dplyr::filter(Sector != "CASH AND/OR DERIVATIVES")
 
 
 
-# rescale the assests under management (AUM) i.e., the sample space for the structural cut-off (xmin) of the power-law distribution is truncated at 1e+05
+# rescale the holdings i.e., the sample space for the structural cut-off (xmin) of the power-law distribution is truncated at 1e+05
 equities <- equities %>% 
-  dplyr::mutate(aum = Market_Value / 1e12) %>%
-  dplyr::filter(!is.na(aum) & aum > 0)
+  dplyr::mutate(holdings = Market_Value / 1e12) %>%
+  dplyr::filter(!is.na(holdings) & holdings > 0)
 
 
 
