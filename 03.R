@@ -8,13 +8,13 @@ path <- "fig/pl_fit/"
 # install packages used to conduct analysis
 # install.packages(c("poweRlaw", "ggplot2", "scales"))
 
-# maximum likelihood estimation of the distribution of firm size i.e., market capitalization --------------------------
+# maximum likelihood estimation of the distribution of assets under management --------------------------
 
   # replication
   set.seed(15092022) # Huddy's birthday
 
-  # distribution of firm size by market caps
-  size <- equities$Market_Value_Billions
+  # distribution of assets under management
+  size <- equities$aum
 
   # maximum likelihood estimation of the power-law distribution
   # see https://www.rdocumentation.org/packages/poweRlaw/versions/0.70.6
@@ -233,7 +233,7 @@ plot_fun <- function(){
   }
   
   # x-axis title i.e., adjust line to make room
-  mtext("Market Capitalization (USD)", side = 1, line = 5, cex = 1)
+  mtext("Assets under management (USD)", side = 1, line = 5, cex = 1)
   
   # shaded confidence band
   graphics::polygon(c(x_seq, rev(x_seq)), 
@@ -250,7 +250,7 @@ plot_fun <- function(){
   
   # add legend for the structural cut-off
   xmin_label <- if (xmin < 1) {
-    paste0("Firms with at least $", round(xmin * 1000, 0), "M in Market Capitalization")
+    paste0("Equities with at least $", round(xmin * 1000, 0), "M in assets under management")
   } else {
     paste0("$", round(xmin, 2), "B")
   }
