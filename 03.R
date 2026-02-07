@@ -275,7 +275,7 @@ plot_fun <- function(){
          legend = c(
            # bquote(alpha == .(round(-a, 3)) ~ "[" * .(round(-cis[1], 3)) * "," ~ .(round(-cis[2], 3)) * "]"),
            bquote(alpha == .(round(-a, 3))),
-           bquote(CIs == "[" * ~ .(round(-cis[1], 3)) * "," ~ .(round(-cis[2], 3)) * "]"),
+           bquote("["* ~ .(round(-cis[1], 3)) * "," ~ .(round(-cis[2], 3)) *"]"),
            bquote(italic(p) == .(round(p, 4)))
          ),
          bty = "n", cex = 1
