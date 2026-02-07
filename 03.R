@@ -274,11 +274,12 @@ plot_fun <- function(){
   legend("topright",
          inset = c(0.05, 0.05),
          legend = c(
-           bquote(alpha == .(round(-a, 3)) ~ "[" * .(round(-cis[1], 3)) * "," ~ .(round(-cis[2], 3)) * "]"),
+           # bquote(alpha == .(round(-a, 3)) ~ "[" * .(round(-cis[1], 3)) * "," ~ .(round(-cis[2], 3)) * "]"),
+           bquote(alpha == .(round(-a, 3))),
            bquote(italic(p) == .(round(p, 4)))
            ),
          bty = "n", 
-         cex = 0.5
+         cex = 1
          )
 }
 
